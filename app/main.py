@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
 from app.core import auth
+from app.core.database import db
 from app.routers import users, games
 
 app = FastAPI()
@@ -18,3 +19,13 @@ app.add_middleware(
 app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(games.router)
+
+@app.on_event("startup")
+async def startup_event():
+    print("Starting up...")
+    await db.connect()
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    print("Shutting down...")
+    await db.disconnect()
