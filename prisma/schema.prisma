@@ -9,8 +9,19 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model User {
+model admin {
     id              Int      @id @default(autoincrement())
     username        String   @unique
     password        String
+}
+
+model user {
+    id             String    @id
+    name           String
+}
+
+model game {
+    id             Int       @id
+    home_score     Int
+    away_score     Int
 }
