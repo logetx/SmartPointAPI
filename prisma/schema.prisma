@@ -23,7 +23,7 @@ model user {
 }
 
 model game {
-    id             Int       @id
+    id             Int       @id @default(autoincrement())
     home_score     Int
     away_score     Int
     
