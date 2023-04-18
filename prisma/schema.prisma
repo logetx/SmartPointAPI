@@ -18,10 +18,15 @@ model admin {
 model user {
     id             String    @id
     name           String
+
+    games          game[]
 }
 
 model game {
     id             Int       @id
     home_score     Int
     away_score     Int
+    
+    user           user      @relation(fields: [user_id], references: [id])
+    user_id        String
 }
