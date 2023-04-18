@@ -41,7 +41,7 @@ def get_password_hash(password: str) -> str:
 async def get_user(
     username: Optional[str]
 ) -> Union[UserInDB, None]:
-    user = await db.user.find_first(where={"username": username})
+    user = await db.admin.find_first(where={"username": username})
 
     if user:
         return UserInDB(**user.dict())
