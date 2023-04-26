@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, status
+from fastapi.responses import RedirectResponse
 from starlette.middleware.cors import CORSMiddleware
 
 from app.core import auth
@@ -24,6 +25,15 @@ app.include_router(games.router)
 async def startup_event():
     print("Starting up...")
     await db.connect()
+
+@app.get(
+    "/",
+    response_class=RedirectResponse,
+    tags=["root"],
+    status_code=status.HTTP_308_PERMANENT_REDIRECT
+)
+async def root():
+    return "/redoc"
 
 @app.on_event("shutdown")
 async def shutdown_event():
