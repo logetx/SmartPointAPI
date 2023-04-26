@@ -27,7 +27,7 @@ async def read_games() -> dict[str, list[dict]]:
     return {"games": games}
 
 @router.get("/games/{game_id}", status_code=status.HTTP_200_OK, tags=["game"])
-async def read_game(game_id: str) -> dict[str, dict]:
+async def read_game(game_id: int) -> dict[str, dict]:
     game = await db.game.find_first(where={"id": game_id})
     return {"game": game}
 
