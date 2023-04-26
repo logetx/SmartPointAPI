@@ -1,10 +1,9 @@
 from typing import Union
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, status
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
-from app.core.auth import get_current_user
 from app.core.database import db
 
 router = APIRouter()
