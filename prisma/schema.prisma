@@ -26,6 +26,8 @@ model game {
     id             Int       @id @default(autoincrement())
     home_score     Int
     away_score     Int
+    createAt       DateTime  @default(now())
+    updateAt       DateTime  @updatedAt
     
     user           user      @relation(fields: [user_id], references: [id])
     user_id        String
