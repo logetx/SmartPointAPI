@@ -15,7 +15,8 @@ class Game(BaseModel):
 
 
 async def card_exists(card_id: str) -> bool:
-    card = await db.card.find_first(where={"id": card_id})
+    card = await db.user.find_first(where={"id": card_id})
+    print(card)
     if card:
         return True
     return False
@@ -32,7 +33,7 @@ async def read_game(game_id: int) -> dict[str, dict]:
 
 @router.post("/games/", status_code=status.HTTP_201_CREATED, tags=["game"])
 async def create_game(game: Game) -> dict[str, Union[str, dict]]:
-    if card_exists(game.card_id) is False:
+    if await card_exists(game.card_id) is False:
         return JSONResponse(status_code=status.HTTP_401_UNAUTHORIZED, content={"message": "Card not authorized"})
 
     db_game = await db.game.create(data={
